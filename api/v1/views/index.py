@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """
-API view that handles all default RESTful API actions for stats in AirBnB clone v3.
+API view that handles all default RESTful API actions for
+stats in AirBnB clone v3.
 """
 
 from flask import jsonify, make_response
@@ -13,6 +14,7 @@ from models.city import City
 from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
+
 
 @app_views.route('/stats', methods=['GET'])
 def stats():
