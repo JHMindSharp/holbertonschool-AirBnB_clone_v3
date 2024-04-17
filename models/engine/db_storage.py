@@ -85,5 +85,6 @@ class DBStorage:
             return self.__session.query(cls).count()
         else:
             all_classes = [Amenity, City, Place, Review, State, User]
-            total_count = sum(self.__session.query(cls).count() for cls in all_classes)
+            total_count = sum(
+                self.__session.query(cls).count() for cls in all_classes)
             return total_count
