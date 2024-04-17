@@ -1,10 +1,14 @@
+#!/usr/bin/python3
+"""
+Main module for the AirBnB clone API
+"""
+
 from flask import Flask
 from os import getenv
 from api.v1.views import app_views
 from models import storage
 
 app = Flask(__name__)
-
 app.register_blueprint(app_views, url_prefix='/api/v1')
 
 
