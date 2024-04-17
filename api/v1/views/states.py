@@ -7,11 +7,13 @@ from models import storage
 from models.state import State
 from api.v1.views import app_views
 
+
 @app_views.route('/states/', methods=['GET'], strict_slashes=False)
 def get_states():
     """Get all states"""
     all_states = [state.to_dict() for state in storage.all(State).values()]
     return jsonify(all_states)
+
 
 @app_views.route('/states/<state_id>', methods=['GET'])
 def get_state(state_id):
@@ -20,6 +22,7 @@ def get_state(state_id):
     if not state:
         abort(404)
     return jsonify(state.to_dict())
+
 
 @app_views.route('/states/', methods=['POST'], strict_slashes=False)
 def create_state():
@@ -31,6 +34,7 @@ def create_state():
     state = State(**request.get_json())
     state.save()
     return jsonify(state.to_dict()), 201
+
 
 @app_views.route('/states/<state_id>', methods=['PUT'])
 def update_state(state_id):
@@ -46,6 +50,7 @@ def update_state(state_id):
             setattr(state, key, value)
     state.save()
     return jsonify(state.to_dict())
+
 
 @app_views.route('/states/<state_id>', methods=['DELETE'])
 def delete_state(state_id):
