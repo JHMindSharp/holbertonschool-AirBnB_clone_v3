@@ -23,9 +23,8 @@ def close_storage(exception):
 
 @app.errorhandler(404)
 def not_found(error):
-    """404 error handler returning JSON formatted response."""
-    response = json.dumps({"error": "Not found"}, indent=4)
-    return response, 404, {'Content-Type': 'application/json'}
+    """404 not found error handler."""
+    return jsonify({"error": "Not found"}), 404
 
 
 if __name__ == "__main__":
