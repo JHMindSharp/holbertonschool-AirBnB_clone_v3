@@ -78,7 +78,7 @@ class DBStorage:
     def get(self, cls, id):
         """Recupere un objet en fonction de sa classe et de son ID"""
         return self.__session.query(cls).filter_by(id=id).first()
-    
+
     def count(self, cls=None):
         """>Compte le nombre d objets dans le stockage correspondant
         à la classe donnée"""

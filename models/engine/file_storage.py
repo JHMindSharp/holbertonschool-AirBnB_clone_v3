@@ -75,7 +75,8 @@ class FileStorage:
         return self.__objects.get(key, None)
 
     def count(self, cls=None):
-        """Compte le nombre d'objets dans le stockage correspondant à la classe donnée"""
+        """Compte le nombre d'objets dans le stockage
+        correspondant à la classe donnée"""
         if cls:
             count = 0
             for obj_key in self.__objects.keys():
