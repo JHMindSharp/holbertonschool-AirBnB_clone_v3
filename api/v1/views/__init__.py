@@ -1,7 +1,10 @@
-# api/v1/views/__init__.py
+#!/usr/bin/python3
+"""
+Package for API views.
+"""
 from flask import Blueprint
 
 app_views = Blueprint('app_views', __name__)
 
-# Wildcard import to avoid circular import errors
+# Import all modules to avoid circular imports
 from api.v1.views.index import *
