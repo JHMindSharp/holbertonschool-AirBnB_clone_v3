@@ -80,12 +80,10 @@ class DBStorage:
         return self.__session.query(cls).filter_by(id=id).first()
 
     def count(self, cls=None):
-        """>Compte le nombre d objets dans le stockage correspondant
-        à la classe donnée"""
+        """Returns number of objects in storage matching the given class."""
         if cls:
             return self.__session.query(cls).count()
         else:
-            total = 0
-            for clss in classes.values():
-                total += self.__session.query(clss).count()
-            return total
+            all_classes = [Amenity, City, Place, Review, State, User]
+            total_count = sum(self.__session.query(cls).count() for cls in all_classes)
+            return total_count

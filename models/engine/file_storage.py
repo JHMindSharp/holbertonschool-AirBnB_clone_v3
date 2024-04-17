@@ -77,12 +77,10 @@ class FileStorage:
     def count(self, cls=None):
         """Compte le nombre d'objets dans le stockage
         correspondant à la classe donnée"""
-        if cls:
-            count = 0
-            for obj_key in self.__objects.keys():
-                obj_class = obj_key.split('.')[0]
-                if obj_class == cls.__name__:
-                    count += 1
-            return count
-        else:
-            return len(self.__objects)
+        if cls is None:
+            return len(self.__objetcs)
+        count = 0
+        for obj in self.__objects.values():
+            if type(obj).__name__ == cls:
+                count += 1
+        return count
