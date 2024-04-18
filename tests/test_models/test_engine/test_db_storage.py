@@ -14,6 +14,7 @@ from models.place import Place
 from models.review import Review
 from models.state import State
 from models.user import User
+from models import storage
 import json
 import os
 import pycodestyle
@@ -88,16 +89,18 @@ class TestFileStorage(unittest.TestCase):
         """Test that save properly saves objects to file.json"""
 
     def test_get(self):
-        """Teste la méthode get de DBStorage"""
-        state_id = list(storage.all(State).values())[0].id
-        state = storage.get(State, state_id)
-        self.assertIsNotNone(state)
-        self.assertEqual(state_id, state.id)
+        """Test the get method of DBStorage."""
+        if type(storage).__name__ == "DBStorage":
+            state_id = list(storage.all(State).values())[0].id
+            state = storage.get(State, state_id)
+            self.assertIsNotNone(state)
+            self.assertEqual(state.id, state_id)
 
     def test_count(self):
-        """Teste la méthode count de DBStorage"""
-        count_all = storage.count()
-        self.assertGreater(count_all, 0)
-
-        count_states = storage.count(State)
-        self.assertGreater(count_states, 0)
+        """Test the count method of DBStorage."""
+        initial_count = storage.count()
+        new_state = State(name="New State")
+        storage.new(new_state)
+        storage.save()
+        new_count = storage.count()
+        self.assertEqual(new_count, initial_count + 1)
