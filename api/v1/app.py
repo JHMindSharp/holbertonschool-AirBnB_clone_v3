@@ -3,16 +3,15 @@
 Application entry point for the custom Flask API.
 """
 from os import getenv
-import json
-from flask import Flask, jsonify, make_response
+from flask import Flask, jsonify
 from models import storage
 from api.v1.views import app_views
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
 app.register_blueprint(app_views)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
-cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 
 @app.teardown_appcontext
@@ -27,13 +26,7 @@ def not_found(error):
     return jsonify({"error": "Not found"}), 404
 
 
-@app_views.route('/some-route', methods=['GET'])
-@cross_origin(origin='*', headers=['Content-Type', 'Authorization'])
-def get_data():
-    return jsonify({'message': 'Hello from the CORS-enabled route!'})
-
-
 if __name__ == "__main__":
     host = getenv('HBNB_API_HOST', '0.0.0.0')
     port = getenv('HBNB_API_PORT', '5000')
-    app.run(host=host, port=port)
+    app.run(host=host, port=port, debug=True)
