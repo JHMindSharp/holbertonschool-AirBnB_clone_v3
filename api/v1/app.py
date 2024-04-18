@@ -12,7 +12,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 app.register_blueprint(app_views)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
-CORS(app, resources={r"/api/*": {"origins": "*"}})
+cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 
 @app.teardown_appcontext
@@ -25,6 +25,12 @@ def close_storage(exception):
 def not_found(error):
     """404 not found error handler."""
     return jsonify({"error": "Not found"}), 404
+
+
+@app_views.route('/some-route', methods=['GET'])
+@cross_origin(origin='*', headers=['Content-Type', 'Authorization'])
+def get_data():
+    return jsonify({'message': 'Hello from the CORS-enabled route!'})
 
 
 if __name__ == "__main__":
