@@ -16,6 +16,12 @@ from models.place import Place
 from models.review import Review
 
 
+@app_views.route('/status', methods=['GET'])
+def status():
+    """Returns a simple status message to indicate that the API is working."""
+    return jsonify({"status": "OK"})
+
+
 @app_views.route('/stats', methods=['GET'])
 def stats():
     """
